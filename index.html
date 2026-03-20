@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>말랑말랑 AI 교실 - 우리 함께 배워요!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        round: ['Nanum Round', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Round:wght@400;700;800&display=swap');
+        
+        body {
+            font-family: 'Nanum Round', sans-serif;
+            scroll-behavior: smooth;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dark .glass-morphism {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%);
+        }
+
+        .dark .hero-gradient {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+        }
+
+        .card-hover:hover {
+            transform: scale(1.05);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .btn-bounce:hover {
+            animation: bounce 0.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Dark mode transitions */
+        .dark-transition {
+            transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-blue-50 text-gray-800 dark:bg-slate-900 dark:text-gray-100 dark-transition">
+
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="fixed bottom-6 right-6 z-[100] w-16 h-16 rounded-full bg-white dark:bg-slate-800 shadow-2xl flex items-center justify-center text-3xl border-4 border-blue-200 dark:border-indigo-500 transition-all active:scale-90 overflow-hidden">
+        <span id="theme-icon-sun" class="block dark:hidden">☀️</span>
+        <span id="theme-icon-moon" class="hidden dark:block">🌙</span>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-morphism shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl">🤖</span>
+                    <span class="text-xl font-extrabold text-blue-600 dark:text-blue-400 tracking-tight">말랑말랑 AI 교실</span>
+                </div>
+                <div class="hidden md:flex space-x-6 font-bold">
+                    <a href="#intro" class="hover:text-pink-500 transition">선생님 인사</a>
+                    <a href="#ethics" class="hover:text-pink-500 transition">로봇의 마음(윤리)</a>
+                    <a href="#dilemma" class="hover:text-pink-500 transition text-pink-600 dark:text-pink-400 underline">생각해봐요!</a>
+                    <a href="#learning" class="hover:text-pink-500 transition">로봇 공부법(학습)</a>
+                    <a href="#quiz" class="hover:text-pink-500 transition">퀴즈 놀이</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="intro" class="hero-gradient min-h-screen flex items-center justify-center pt-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="mb-6 inline-block floating">
+                <span class="text-8xl">🚀</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 text-gray-800 dark:text-white">
+                인공지능 친구와<br><span class="text-pink-500 dark:text-pink-400">멋진 미래</span>를 만들어요!
+            </h1>
+            <p class="text-lg md:text-xl mb-10 text-gray-600 dark:text-gray-300 leading-relaxed font-medium">
+                안녕, 어린이 여러분! 👋<br>
+                컴퓨터가 어떻게 생각하고, 어떻게 착한 로봇이 되는지<br>
+                선생님과 함께 재미있게 알아볼까요?
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#ethics" class="bg-pink-500 text-white px-10 py-4 rounded-full font-bold text-xl hover:bg-pink-600 transition-all shadow-lg">
+                    수업 시작!
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Topic 1: AI Ethics for Kids -->
+    <section id="ethics" class="py-24 px-4 max-w-7xl mx-auto">
+        <div class="text-center mb-16 fade-in">
+            <span class="bg-yellow-200 dark:bg-yellow-600 text-yellow-800 dark:text-yellow-100 px-4 py-1 rounded-full text-sm font-bold uppercase">Topic 01</span>
+            <h2 class="text-4xl font-extrabold mt-4 dark:text-white">착한 인공지능의 약속 (윤리)</h2>
+            <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg">인공지능도 우리처럼 지켜야 할 예절이 있어요!</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border-4 border-blue-200 dark:border-blue-900 card-hover text-center dark-transition">
+                <div class="text-5xl mb-6">🤝</div>
+                <h3 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">모두에게 평등하게</h3>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">남자아이, 여자아이, 안경 쓴 친구 모두에게 똑같이 친절해야 해요. 누구도 차별하면 안 돼요!</p>
+            </div>
+            <!-- Card 2 -->
+            <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border-4 border-green-200 dark:border-green-900 card-hover text-center dark-transition">
+                <div class="text-5xl mb-6">🛡️</div>
+                <h3 class="text-2xl font-bold mb-4 text-green-600 dark:text-green-400">우리 안전이 먼저</h3>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">인공지능은 사람을 다치게 하거나 나쁜 일에 쓰이면 안 돼요. 사람을 도와주는 착한 마음이 필요해요.</p>
+            </div>
+            <!-- Card 3 -->
+            <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border-4 border-purple-200 dark:border-purple-900 card-hover text-center dark-transition">
+                <div class="text-5xl mb-6">📢</div>
+                <h3 class="text-2xl font-bold mb-4 text-purple-600 dark:text-purple-400">솔직하게 말하기</h3>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">"나는 왜 이렇게 생각했어!"라고 정직하게 말해줄 수 있어야 해요. 비밀이 너무 많으면 안 돼요.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: Ethical Dilemma Button -->
+    <section id="dilemma" class="py-16 bg-pink-100 dark:bg-slate-800 fade-in dark-transition">
+        <div class="max-w-4xl mx-auto text-center px-4">
+            <div class="bg-white dark:bg-slate-900 p-10 rounded-[40px] shadow-xl border-4 border-pink-300 dark:border-pink-900">
+                <span class="text-5xl mb-4 block">🤔</span>
+                <h2 class="text-3xl font-extrabold mb-4 text-pink-600 dark:text-pink-400">잠깐! 이럴 땐 어떻게 할까요?</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 mb-8 font-medium leading-relaxed">
+                    로봇이 두 가지 선택 중에서 고민하고 있어요.<br>
+                    정답이 없는 어려운 문제, 우리 함께 정답을 찾아볼까요?
+                </p>
+                <a href="./01/index.html" class="inline-block bg-pink-500 text-white px-12 py-5 rounded-full font-extrabold text-2xl hover:bg-pink-600 transition-all shadow-lg btn-bounce">
+                    <i class="fas fa-lightbulb mr-2"></i> 윤리적 딜레마 체험하기
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Topic 2: AI Learning for Kids -->
+    <section id="learning" class="py-24 bg-white dark:bg-slate-900 dark-transition">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-16">
+            <div class="md:w-1/2 relative fade-in">
+                <div class="relative">
+                    <div class="absolute -top-10 -left-10 w-24 h-24 bg-yellow-200 dark:bg-yellow-900 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                    <div class="bg-blue-100 dark:bg-slate-800 p-8 rounded-[40px] shadow-inner relative border-2 border-blue-200 dark:border-indigo-900">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white dark:bg-slate-700 p-4 rounded-2xl shadow-sm text-center">
+                                <span class="text-4xl">🍎</span>
+                                <p class="mt-2 font-bold text-gray-500 dark:text-gray-300">사과 데이터</p>
+                            </div>
+                            <div class="bg-white dark:bg-slate-700 p-4 rounded-2xl shadow-sm text-center">
+                                <span class="text-4xl">🍌</span>
+                                <p class="mt-2 font-bold text-gray-500 dark:text-gray-300">바나나 데이터</p>
+                            </div>
+                            <div class="col-span-2 bg-blue-500 dark:bg-indigo-600 text-white p-4 rounded-2xl text-center font-bold">
+                                로봇이 공부 중... ✍️
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2 fade-in">
+                <span class="bg-green-200 dark:bg-green-800 text-green-800 dark:text-green-100 px-4 py-1 rounded-full text-sm font-bold uppercase">Topic 02</span>
+                <h2 class="text-4xl font-extrabold mt-4 mb-6 dark:text-white">로봇은 어떻게 공부할까?</h2>
+                <p class="text-gray-600 dark:text-gray-300 text-lg mb-8 leading-relaxed font-medium">
+                    인공지능 로봇은 우리가 보여주는 수많은 사진과 글을 보며 공부해요. 이것을 <span class="text-blue-600 dark:text-blue-400 underline underline-offset-4">머신러닝</span>이라고 불러요!
+                </p>
+                <div class="space-y-4">
+                    <div class="flex items-start space-x-4 p-4 bg-orange-50 dark:bg-slate-800 rounded-2xl">
+                        <div class="bg-orange-200 dark:bg-orange-900 p-2 rounded-lg font-bold text-orange-700 dark:text-orange-200">1</div>
+                        <p class="font-bold dark:text-gray-200">데이터 모으기: 공부할 재료(사진, 소리)를 모아요.</p>
+                    </div>
+                    <div class="flex items-start space-x-4 p-4 bg-blue-50 dark:bg-slate-800 rounded-2xl">
+                        <div class="bg-blue-200 dark:bg-blue-900 p-2 rounded-lg font-bold text-blue-700 dark:text-blue-200">2</div>
+                        <p class="font-bold dark:text-gray-200">학습하기: 로봇에게 "이건 사과야"라고 알려줘요.</p>
+                    </div>
+                    <div class="flex items-start space-x-4 p-4 bg-purple-50 dark:bg-slate-800 rounded-2xl">
+                        <div class="bg-purple-200 dark:bg-purple-900 p-2 rounded-lg font-bold text-purple-700 dark:text-purple-200">3</div>
+                        <p class="font-bold dark:text-gray-200">퀴즈 풀기: 새로운 사진을 보고 로봇이 맞혀봐요!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Quiz Section -->
+    <section id="quiz" class="py-24 px-4 bg-yellow-50 dark:bg-slate-800 dark-transition">
+        <div class="max-w-3xl mx-auto bg-white dark:bg-slate-900 p-10 rounded-[40px] shadow-2xl border-b-8 border-yellow-200 dark:border-indigo-900">
+            <div class="text-center mb-10">
+                <span class="text-5xl mb-4 block">⭐</span>
+                <h2 class="text-3xl font-extrabold mb-2 dark:text-white">도전! AI 박사님</h2>
+                <p class="text-gray-500 dark:text-gray-400">문제를 풀고 스티커를 받아보세요!</p>
+            </div>
+            
+            <div id="quiz-container">
+                <div class="mb-8">
+                    <div class="bg-gray-100 dark:bg-slate-800 p-6 rounded-3xl mb-8">
+                        <p class="text-xl font-bold text-gray-800 dark:text-gray-100 text-center" id="question">
+                            Q. 인공지능 로봇이 어린이 친구들의 사진을 보고 공부할 때, 특정 친구만 미워하거나 차별하면 될까요?
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 gap-4" id="options">
+                        <button onclick="checkAnswer(this, true)" class="w-full text-center p-5 bg-blue-50 dark:bg-slate-800 border-4 border-blue-100 dark:border-blue-900 rounded-2xl hover:border-blue-400 hover:bg-blue-100 dark:hover:bg-slate-700 transition-all font-bold text-lg text-blue-800 dark:text-blue-300">
+                            안 돼요! 모두 공평하게 대해야 해요.
+                        </button>
+                        <button onclick="checkAnswer(this, false)" class="w-full text-center p-5 bg-pink-50 dark:bg-slate-800 border-4 border-pink-100 dark:border-pink-900 rounded-2xl hover:border-pink-400 hover:bg-pink-100 dark:hover:bg-slate-700 transition-all font-bold text-lg text-pink-800 dark:text-pink-300">
+                            상관없어요! 로봇 마음이에요.
+                        </button>
+                    </div>
+                </div>
+                <div id="feedback" class="hidden p-6 rounded-2xl text-center font-bold text-xl transform transition-all"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 dark:bg-slate-950 text-white py-12 px-4 rounded-t-[50px] dark-transition">
+        <div class="max-w-7xl mx-auto text-center">
+            <h3 class="text-2xl font-bold mb-4">🌈 함께 만들어요, 인공지능 세상!</h3>
+            <p class="mb-6 opacity-90">우리 반 친구들의 멋진 생각을 응원합니다.</p>
+            <p class="text-sm opacity-70 italic">© 2024 초등학교 정보교실 - 행복한 선생님 드림</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        // Load preferred theme
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Quiz Logic
+        function checkAnswer(button, isCorrect) {
+            const feedback = document.getElementById('feedback');
+            const options = document.getElementById('options').querySelectorAll('button');
+            
+            options.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-50');
+            });
+
+            feedback.classList.remove('hidden');
+            if (isCorrect) {
+                button.classList.remove('opacity-50');
+                button.classList.add('border-green-500', 'bg-green-50', 'dark:bg-green-900', 'dark:text-green-100');
+                feedback.innerHTML = "참 잘했어요! ✨<br>인공지능은 누구도 차별하지 않는 '공정성'이 중요해요.";
+                feedback.classList.add('bg-green-100', 'text-green-700', 'dark:bg-green-800', 'dark:text-green-100', 'scale-105');
+            } else {
+                button.classList.remove('opacity-50');
+                button.classList.add('border-red-500', 'bg-red-50', 'dark:bg-red-900', 'dark:text-red-100');
+                feedback.innerHTML = "틀렸어요! 😢<br>인공지능은 모든 친구를 똑같이 아껴줘야 한답니다.";
+                feedback.classList.add('bg-red-100', 'text-red-700', 'dark:bg-red-800', 'dark:text-red-100');
+            }
+        }
+    </script>
+</body>
+</html>
